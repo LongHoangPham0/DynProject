@@ -1,0 +1,67 @@
+{
+    "approval0":{
+        "show": false,
+        "tag": "no approval"
+    },
+    "approval":{
+        "show": true,
+        "submittable": true,
+        "submitter": true,
+        "tag": "creator view: not submit"
+    },
+    "approval2":{
+        "show": true,
+        "histories":[
+            {
+                "state": "Submitted",
+                "comment": "Please review",
+                "approver": "Minh M.",
+                "time": "2021-06-19 14:34"
+            }
+        ],
+        "submittable": false,
+        "submitter": true,
+        "tag": "creator view: submitted"
+    },
+    "approval3":{
+        "show": true,
+        "histories":[
+            {
+                "state": "Submitted",
+                "comment": "Please review",
+                "approver": "Minh M.",
+                "time": "2021-06-19 14:34"
+            },
+            {
+                "state": "Lv1_Approved",
+                "comment": "Approved",
+                "approver": "John M.",
+                "time": "2021-06-19 14:34"
+            }
+        ],
+        "submittable": true,
+        "submitter": false,
+        "tag": "approver view: not submit"
+    },
+    "approval4":{
+        "show": true,
+        "histories":[
+            {
+                "state": "Submitted",
+                "comment": "Please review",
+                "approver": "Minh M.",
+                "time": "2021-06-19 14:34"
+            },
+            {
+                "state": "Lv1_Approved",
+                "comment": "Approved",
+                "approver": "John M.",
+                "time": "2021-06-19 14:34"
+            }
+        ],
+        "submittable": false,
+        "submitter": false,
+        "tag": "approver view: submitted"
+    }
+
+}

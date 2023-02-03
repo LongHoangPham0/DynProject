@@ -1,0 +1,189 @@
+﻿@using BlueMoon.DynWeb.Models;
+@using BlueMoon.DynWeb.Entities;
+@model SystemModel
+@{
+    ViewBag.Title = "Entity Definition";
+    ViewBag.UsingModal = true;
+    Model.ReturnUrl = Request.RawUrl;
+}
+@if (Model.ItemType.ID > 0)
+{
+    <h4><b>Edit entity</b></h4>
+}
+else
+{
+    <h4><b>New entity</b></h4>
+}
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control", onsubmit = "return valInput();" }))
+{
+
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @(Html.InputForModel<ItemType>("ItemType", Model.ItemType, new ModelControlConfiguration<ItemType>() { ValidateFunction = "valInput" }))
+    if (Model.ListItemType != null)
+    {
+        <div>
+            <label>Child entities</label>
+        </div>
+        int index = 0;
+        <table class="table table-bordered table-child">
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 30%">Name</th>
+                <th style="width: 30%">Type</th>
+                <th style="width: 30%">Alias</th>
+                <th style="width: 5%">Order</th>
+            </tr>
+            @if (Model.ChildItemSelected != null)
+            {
+                foreach (var itemTypeSelected in Model.ChildItemSelected)
+                {
+                    <tr>
+                    @foreach (var itemtype in Model.ListItemType)
+                    {
+                        if (itemtype.ID == itemTypeSelected.ChildTypeID)
+                        {
+                        <td>
+                            <input id="cidChildItemSelected[@index]_ChildTypeID" type="checkbox" name="ChildItemSelected[@index].ChildTypeID" checked value="@itemtype.ID" />
+                        </td>
+                        <td><label for="cidChildItemSelected[@index]_ChildTypeID"> @itemtype.Name</label></td>
+                        <td>
+                            @if (itemtype.TypeOfItem != (int)TypeOfItem.ChildOnly)
+                            {
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="1" @(itemTypeSelected.Type == 1 ? "checked" : null) /><label> Selection </label>
+                            }
+                            @if (itemtype.ID != Model.ItemType.ID)
+                            {
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="0" @(itemTypeSelected.Type == 0 ? "checked" : null) /> <label> Add more </label>
+                            }
+
+
+                            @if (itemtype.ID != Model.ItemType.ID)
+                            {
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="2" @(itemTypeSelected.Type == 2 ? "checked" : null) /> <label> Extension </label>
+                            }
+                        </td>
+                        <td>
+                            <input type="text" value="@itemTypeSelected.Alias" name="ChildItemSelected[@index].Alias" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" value="@itemTypeSelected.SortOrder" name="ChildItemSelected[@index].SortOrder" class="form-control" />
+                        </td>
+                        }
+                    }
+                    </tr>
+                    index++;
+                }
+            }
+            @foreach (var itemtype in Model.ListItemType)
+            {
+                bool selected = false;
+                if (Model.ChildItemSelected != null)
+                {
+                    foreach (var itemTypeSelected in Model.ChildItemSelected)
+                    {
+                        if (itemtype.ID == itemTypeSelected.ChildTypeID)
+                        {
+
+                            selected = true;
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+                if (!selected && (itemtype.ID != Model.ItemType.ID || itemtype.TypeOfItem != (int)TypeOfItem.ChildOnly))
+                {
+                    <tr>
+                        <td>
+                            <input id="cidChildItemSelected[@index]_ChildTypeID" type="checkbox" name="ChildItemSelected[@index].ChildTypeID" value="@itemtype.ID" />
+                        </td>
+                        <td><label for="cidChildItemSelected[@index]_ChildTypeID"> @itemtype.Name</label></td>
+                        <td>
+                            @if (itemtype.TypeOfItem != (int)TypeOfItem.ChildOnly)
+                            {
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="1" /> <label> Selection</label>
+                            }
+                            @if (itemtype.ID != Model.ItemType.ID)
+                            {
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="0" /> <label> Add more </label>
+                            }
+                            @if (itemtype.ID != Model.ItemType.ID)
+                            {
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="2" /> <label> Extension </label>
+                            }
+                        </td>
+                        <td>
+                            <input type="text" name="ChildItemSelected[@index].Alias" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" name="ChildItemSelected[@index].SortOrder" class="form-control" />
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+        </table>
+    }
+    <div style="text-align: right">
+        <button name="Action" type="submit" class="btn btn-primary fas fa-save"> Save</button>
+        <a href="@Url.Action("listItemType", "item")" class="btn btn-secondary fas fa-undo"> Cancel</a>
+    </div>
+    <script>
+        document.getElementsByName('ItemType.Name')[0].disabled = document.getElementsByName('ItemType.ID')[0].value != '[protected:0]';
+    </script>
+}
+
+@if (Model.ItemType.ID > 0)
+{
+    <hr />
+    <div class="list-item-type">
+        <h4>Attributes</h4>
+        <a onclick="openModal('Attribute Detail','@Url.Action("manageItemProperty", "item")?_sq=true&ItemType.ID=@Model.ItemType.ID&ReturnUrl=@Url.Encode(Model.ReturnUrl)&ItemProperty.ID=0'); return false;" class="btn btn-primary fas fa-plus-square"> New attribute</a>
+    </div>
+    using (Html.BeginForm("deleteProperty", "item", FormMethod.Post))
+    {
+        <table class="table table-bordered table-property">
+            <tr>
+                <th style="width: 20%">Property Name</th>
+                <th style="width: 10%">Data Type</th>
+                <th style="width: 23%">Label Text</th>
+                <th style="width: 20%">Input Control</th>
+                <th style="width: 5%">Order</th>
+                <th style="width: 12%"></th>
+            </tr>
+            @if (Model.ListProperty != null)
+            {
+                foreach (var property in Model.ListProperty)
+                {
+                    <tr>
+                        <td>
+                            <a onclick="openModal('Attribute Detail','@Url.Action("manageItemProperty", "item")?_sq=true&ItemType.ID=@Model.ItemType.ID&ReturnUrl=@Url.Encode(Model.ReturnUrl)&ItemTypeProperty.ID=@property.ID'); return false;" href="#">@property.PropertyName</a>
+                        </td>
+                        <td>@property.DataType</td>
+                        <td>@property.LabelText</td>
+                        <td>@property.InputControl</td>
+                        <td>@property.SortOrder</td>
+                        <td>
+                            <button type="submit" class="btn btn-danger fas fa-trash" name="ID" value="@property.ID"> Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>No record found</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        </table>
+    }
+}
+
+

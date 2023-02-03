@@ -1,0 +1,178 @@
+﻿@using InternalProject.Web.Models
+@model SystemModel
+@{
+    ViewBag.Title = "ManageItemType";
+
+    Model.ReturnUrl = Request.RawUrl;
+}
+@if (Model.ItemType.ID > 0)
+{
+    <h4><b>Edit Item Type</b></h4>
+}
+else
+{
+    <h4><b>New Item Type</b></h4>
+}
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post))
+{
+    @Html.SecuredHiddenFor(m => m.ItemType.ID)
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    if (Model.ItemType.ID > 0)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.ItemType.Name)
+            @Html.TextBoxFor(m => m.ItemType.Name, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.ItemType.Name)
+            @Html.TextBoxFor(m => m.ItemType.Name, new { @class = "form-control", @required = "required" })
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(m => m.ItemType.Display)
+        @Html.TextBoxFor(m => m.ItemType.Display, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Display Property</label>
+        @Html.TextBoxFor(m => m.ItemType.DisplayProperty, new { @class = "form-control", @required = "required" })
+    </div>
+    <div>
+        <label>Child Only</label>
+        @Html.CheckBoxFor(m => m.ItemType.ChildOnly)
+    </div>
+    if (Model.ListItemType != null)
+    {
+        <div>
+            <label>List Child Item</label>
+        </div>
+        <table class="table table-bordered table-child">
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 35%">Name</th>
+                <th style="width: 30%">Type</th>
+                <th style="width: 30%">Alias</th>
+            </tr>
+            @{int index = 0;}
+            @foreach (var itemtype in Model.ListItemType)
+            {
+                bool selected = false;
+                <tr>
+                    @if (Model.ChildItemSelected != null)
+                    {
+                        foreach (var itemTypeSelected in Model.ChildItemSelected)
+                        {
+                            if (itemtype.ID == itemTypeSelected.ChildTypeID)
+                            {
+                            <td>
+                                <input type="checkbox" name="ChildItemSelected[@index].ChildTypeID" checked value="@itemtype.ID" />
+                            </td>
+                            <td>@itemtype.Name</td>
+                            <td>
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="0" @(itemTypeSelected.Type == 0 ? "checked" : null) /> Add New
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="1" @(itemTypeSelected.Type == 1 ? "checked" : null) /> Add More
+                                <input type="radio" name="ChildItemSelected[@index].Type" value="2" @(itemTypeSelected.Type == 2 ? "checked" : null) /> Extension
+                            </td>
+                            <td>
+                                <input type="text" value="@itemTypeSelected.Alias" name="ChildItemSelected[@index].Alias" class="form-control" />
+                            </td>
+                                selected = true;
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                    @if (selected == false)
+                    {
+                        <td>
+                            <input type="checkbox" name="ChildItemSelected[@index].ChildTypeID" value="@itemtype.ID" />
+                        </td>
+                        <td>@itemtype.Name</td>
+                        <td>
+                            <input type="radio" name="ChildItemSelected[@index].Type" value="0" /> Add New
+                            <input type="radio" name="ChildItemSelected[@index].Type" value="1" /> Add More
+                            <input type="radio" name="ChildItemSelected[@index].Type" value="2" /> Extension
+                        </td>
+                        <td>
+                            <input type="text" name="ChildItemSelected[@index].Alias" class="form-control" />
+                        </td>
+                    }
+                    
+
+                </tr>
+                index++;
+            }
+        </table>
+    }
+    <div class="form-group">
+        <label>Allow Add Comment</label>
+        @Html.CheckBoxFor(m => m.ItemType.AllowAddComment)
+    </div>
+    <div class="form-group">
+        <label>Sort Order</label>
+        @Html.TextBoxFor(m => m.ItemType.SortOrder, new { @class = "form-control", @required = "required" })
+    </div>
+    <div style="text-align: right">
+        <a href="@Url.Action("ListItemType", "System")" class="btn btn-default">Cancel</a>
+        <input name="Action" type="submit" class="btn btn-primary" value="Save" />
+    </div>
+
+}
+
+@if (Model.ItemType.ID > 0)
+{
+    <hr />
+    <div class="list-item-type">
+        <h4>List Property</h4>
+        <a onclick="openModal('@Url.Action("manageitemproperty", "system")?ItemType.ID=@Model.ItemType.ID&ReturnUrl=@Url.Encode(Model.ReturnUrl)&ItemProperty.ID=0')" class="btn btn-primary">New Item Property</a>
+    </div>
+    using (Html.BeginForm("DeleteProperty", "System", FormMethod.Post))
+    {
+        <table class="table table-bordered table-property">
+            <tr>
+                <th style="width: 20%">Property Name</th>
+                <th style="width: 10%">Data Type</th>
+                <th style="width: 30%">Label Text</th>
+                <th style="width: 10%">Input Control</th>
+                <th style="width: 10%">Sort Order</th>
+                <th style="width: 10%"></th>
+            </tr>
+            @if (Model.ListProperty != null)
+            {
+                foreach (var property in Model.ListProperty)
+                {
+                    <tr>
+                        <td>
+                            <a onclick="openModal('@Url.Action("manageitemproperty", "system")?ItemType.ID=@Model.ItemType.ID&ReturnUrl=@Url.Encode(Model.ReturnUrl)&ItemTypeProperty.ID=@property.ID')">@property.PropertyName</a>
+                        </td>
+                        <td>@property.DataType</td>
+                        <td>@property.LabelText</td>
+                        <td>@property.InputControl</td>
+                        <td>@property.SortOrder</td>
+                        <td>
+                            <button onclick="return confirmDelete()" type="submit" class="btn btn-danger" name="ID" value="@property.ID">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>No record found</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        </table>
+    }
+}
+
+

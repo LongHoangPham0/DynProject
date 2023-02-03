@@ -1,0 +1,9 @@
+﻿@using BlueMoon.DynWeb.Entities
+@model ItemType
+@{
+    ViewBag.Title = Model.Display;
+    ViewBag.ReactJs = true;
+
+}
+
+<div role="react-loader" data-page="ItemLauncher" itemId="@(ViewBag.ItemId)" editable="@ViewBag.Editable.ToString().ToLower()" showComment="@Model.AllowComment.ToString().ToLower()" showHistory="@Model.TrackingChange.ToString().ToLower()" approver="@ViewBag.IsApprover.ToString().ToLower()" showApproval="@ViewBag.Approval.ToString().ToLower()" tabName="List" authenticated="@Request.IsAuthenticated.ToString().ToLower()" itemTitle="@Model.Display" itemName="@Model.Name" idField="ID" displayField="@Model.DisplayProperty"></div>

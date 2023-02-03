@@ -1,0 +1,57 @@
+﻿@using BlueMoon.DynWeb.Entities
+@using BlueMoon.DynWeb.Models
+@using BlueMoon.DynWeb.Common;
+@model SystemModel
+@{
+    ViewBag.Title = "Account Detail";
+    ViewBag.ReactJs = true;
+}
+@if (Model.Account.ID > 0)
+{
+    <h4><b>Edit account</b></h4>
+}
+else
+{
+    <h4><b>New account</b></h4>
+}
+
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control", autocomplete = "off", onsubmit = "return valInput();" }))
+{
+
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @(Html.InputForModel<Account>("Account", Model.Account, new ModelControlConfiguration<Account>() { ValidateFunction = "valInput" }))
+   
+
+    <div style="text-align: right">
+        <button name="Action" type="submit" class="btn btn-primary fas fa-save"> Save</button>
+        <a href="@Model.ReturnUrl" class="btn btn-secondary fas fa-undo"> Cancel</a>
+    </div>
+
+}
+
+    <script>
+        var pwdObj = document.getElementsByName('Account.Password')[0];
+        var rstPwdObj = document.getElementsByName('Account.ResetPwd')[0];
+        if (document.getElementsByName('Account.ID')[0].value != '[protected:0]') {
+            pwdObj.disabled = true;
+            pwdObj.value = '';
+
+            rstPwdObj.addEventListener('click', function switchRst() {
+                pwdObj.disabled = !this.checked;
+            });
+        }
+        else {
+            rstPwdObj.parentElement.parentElement.style.display = 'none';
+        }
+        
+        var obj = document.getElementsByName('Account.LinkedIDs')[0];
+        if (obj != null) {
+            var div = document.createElement('div');
+
+            div.innerHTML = unescape(obj.value || '');
+            div.setAttribute('role', 'react-loader');
+            div.setAttribute('data-page', 'MapToItem');
+            div.setAttribute('modelProperty', obj.name);
+            obj.parentElement.replaceChild(div, obj);
+        }
+    </script>

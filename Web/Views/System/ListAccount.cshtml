@@ -1,0 +1,39 @@
+﻿@using BlueMoon.DynWeb.Models
+@model SystemModel
+@{
+    ViewBag.Title = "Accounts";
+}
+<div class="list-item-type">
+    <h4>Account list</h4>
+    <a href="@Url.Action("manageaccount","system")" class="btn btn-primary">New account</a>
+</div>
+@using (Html.BeginForm("DeleteAccount", "System", FormMethod.Post))
+{
+    <table class="table table-bordered table-system">
+        <tr>
+            <th style="width: 90%">Name</th>
+            <th style="width: 10%"></th>
+        </tr>
+        @if (Model.ListAccount != null)
+        {
+            foreach (var item in Model.ListAccount)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("manageaccount", "system")?_sq=true&account.id=@item.ID">@item.Username</a>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-danger" name="ID" value="@item.ID" >Delete</button>
+                    </td>
+                </tr> 
+            }
+        }
+        else
+        {
+            <tr>
+                <td>No items</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}

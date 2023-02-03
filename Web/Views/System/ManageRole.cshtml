@@ -1,0 +1,79 @@
+﻿@using BlueMoon.DynWeb.Models
+@using BlueMoon.DynWeb.Common;
+@model SystemModel
+@{
+    ViewBag.Title = "Role Detail";
+}
+@if (Model.Role.ID > 0)
+{
+    <h4><b>Edit role</b></h4>  
+}
+else
+{
+    <h4><b>New role</b></h4>  
+}
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control" }))
+{
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @Html.SecuredHiddenFor(m => m.Role.ID)
+    <label>Name</label>
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Role.Name, new { @class = "form-control", @required = "required" })
+    </div>
+    <label>Description</label>
+    <div class="form-group">
+        @Html.TextAreaFor(m => m.Role.Description, new { @class = "form-control"})
+    </div>
+    <label>Role code</label>
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Role.RoleCode, new { @class = "form-control"})
+    </div>
+    if (Model.ListPermission != null)
+    {
+        <div>
+            <label>Permission list</label>
+        </div>
+        <table class="table table-bordered table-child">
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 95%">Permission code</th>
+            </tr>
+            @{
+                int index = 0;
+            }
+            @foreach (var permission in Model.ListPermission)
+            {
+                bool selected = false;
+                <tr>
+                    @foreach(var permissionSelected in Model.PermissionSelected)
+                    {
+                        if(permission.ID == permissionSelected)
+                        {
+                            <td>
+                               <input checked type="checkbox" name="PermissionSelected" value="@permission.ID"/>
+                            </td>
+                            selected = true;
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    @if(selected == false)
+                    {
+                        <td>
+                            <input type="checkbox" name="PermissionSelected" value="@permission.ID"/>
+                        </td>
+                    }
+                    <td>@permission.Name</td>
+                </tr>
+                index++;
+            }
+        </table>
+    }
+    <div style="text-align: right">
+        <button name="Action" type="submit" class="btn btn-primary fas fa-save"> Save</button>
+        <a href="@Model.ReturnUrl" class="btn btn-secondary fas fa-undo"> Cancel</a> 
+    </div>
+}

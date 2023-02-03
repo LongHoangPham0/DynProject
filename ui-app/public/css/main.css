@@ -1,0 +1,270 @@
+﻿label,
+button,
+input, textarea, select {
+    margin: 3px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+label {
+    min-width: 100px;
+}
+
+textarea {
+    resize: none;
+}
+
+.center {
+    text-align: center;
+    margin: auto 0px 0px;
+}
+
+.action {
+    cursor: pointer;
+}
+
+.fa-trash {
+    color: #f00;
+}
+
+.fa-edit {
+    color: #070;
+}
+.nav-tabs .nav-item{
+    position: relative;
+}
+.nav-tabs .nav-link{
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-tabs .nav-link + span{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    border-radius: 18px;
+    width: 18px; height: 18px;
+    line-height: 18px;
+    font-size: 8px;
+    background-color: #ccc;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    
+    visibility: hidden;
+    opacity: 0;
+    transition:  visibility 0.5s, opacity 0.5s;
+}
+.nav-tabs .nav-link + span:hover,
+.nav-tabs .nav-link:hover + span{
+    visibility: visible;
+    opacity: 1;
+
+}
+.nav-tabs span:hover{
+    background-color: #e60a20;
+    color: #fff;
+}
+.tab-contents {
+    position: relative;
+    padding: 5px;
+}
+.nav-tabs + .tab-contents {
+    border: 1px solid #eee;
+    border-top: none;
+}
+
+.modal-dialog {
+    overflow-y: initial !important
+}
+
+.modal-body {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.comment-panel > div {
+    width: 100%;
+}
+
+.comment-panel textarea {
+    width: 100%;
+    margin: 0;
+}
+
+.comment-panel label {
+    display: block;
+}
+
+.comment-panel .comments {
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.comment-item {
+    margin-top: 5px;
+}
+
+.comment-item .fas {
+    font-size: 4em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.comment-item .popover {
+    position: relative;
+    display: inline-block;
+    max-width: 80%;
+    width: 100%;
+    z-index: auto;
+}
+
+.card-block .card {
+    display: inline-flex;
+    margin: 3px;
+    width: 16rem;
+}
+.fas.fa-moon {
+    color: #0094ff;
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+.pager{
+    margin-top: 5px;
+}
+.pager a {
+    display: inline-block;
+    width: 2em;
+    border: solid 1px #070;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    color: #070;
+    margin: 2px;
+}
+
+.pager a.current {
+    color: #f00;
+}
+.comment-panel .pager{
+    text-align: right;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dbl-text span:last-child input {
+    width: 80px;
+}
+
+.btn-danger.fa-trash {
+    color: #fff;
+}
+
+div.modal-backdrop.show {
+    display: none;
+}
+
+.modal[style*='display: block'] + div.modal-backdrop.show {
+    display: block;
+}
+
+.reporting label {
+    width: auto;
+    min-width: auto;
+}
+
+.reporting .btn-outline-danger {
+    border-style: solid;
+    border-radius: 4px;
+    border-width: 1px;
+    background-color: transparent;
+}
+
+.reporting .btn-outline-danger:hover {
+    color: #e60a20;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #a6d6a6;
+    color: #000;
+}
+.attachment-item a{
+    text-decoration: none;
+}
+.check-fields span{
+    display: block;
+    margin-left: 3em;
+}
+.constraint-panel textarea{
+    width: 100%;
+}
+div.list-item-block .card {
+    margin-bottom: 1em;
+}
+
+div.list-item-block div.card-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.list-item-block div.flow {
+    flex:auto;
+    margin-right: 10px;
+}
+
+div.list-item-block div.flow label {
+    display: block;
+    font-weight: 600;
+}
+
+div.list-item-block div.flow label + span {
+    margin-left: 5px;
+}
+
+div.loading-spin{
+    color: #0094ff;
+}
+
+div.list-group-item {
+    margin: 2px 0;
+}
+/*overwrite bootstrap values*/
+div.row{
+    margin: 0;
+}
+br{
+    clear: both;
+}
+select{
+    min-width: 100px;
+    max-width: 100%;
+    overflow: scroll;
+}
+span.selector,
+span.selector > span{
+    display: block;
+}
+
+span.selector span select,
+span.selector span span{
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+}
+span.selector span select{
+    width: 40%;
+}
+
+span.selector span button{
+    display: block;
+    margin: 10px;
+    border: solid 1px #0094ff;
+}

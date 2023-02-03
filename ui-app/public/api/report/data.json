@@ -1,0 +1,35 @@
+{
+    "name":"Report #X",
+    "result": {
+        "data": [
+            {
+                "col1": "data row 1 col 1",
+                "col2": "data row 1 col 2"
+            },
+            {
+                "col1": "data row 2 col 1",
+                "col2": "data row 2 col 2"
+            },
+            {
+                "col1": "data row 3 col 1",
+                "col2": "data row 3 col 2"
+            }
+        ],
+        "pageIndex": 9,
+        "pageSize": 7,
+        "totalRow": 477,
+        "options":{
+            "columns": [
+                {
+                    "headerLabel": "Col 1",
+                    "dataField": "col1"
+                },
+                {
+                    "headerLabel": "Col 2",
+                    "dataField": "col2"
+                }
+            ]
+        }
+    }
+    
+}

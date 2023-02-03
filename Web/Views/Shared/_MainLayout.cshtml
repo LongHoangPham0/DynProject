@@ -1,0 +1,194 @@
+﻿@using BlueMoon.DynWeb.Entities
+@using BlueMoon.DynWeb.Common
+@{
+    string orgName = "BlueMoon";
+    //string orgName = "Aperia";
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>@orgName - @ViewBag.Title</title>
+    <script>var bs = '@Html.Version("~/res/css/bootstrap.min.css")'; document.write('<link rel="stylesheet" type="text/css" href="' + bs+'" />');</script>@*to avoid auto bundling*@
+    <link rel="shortcut icon" href="~/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="@Html.Version("~/res/css/icons.css")" />
+    <link rel="stylesheet" type="text/css" href="@Html.Version("~/res/css/main.css")" />
+    <link rel="stylesheet" type="text/css" href="@Html.Version("~/res/css/site.css")" />
+
+    @RenderStyles()
+    @RenderScripts()
+    <script type="text/javascript" src="@Html.Version("~/res/js/site.js")"></script>
+
+</head>
+<body>
+    @Html.Partial("_Loading")
+    <main class="flex-shrink-0">
+        <div class="container">
+            <!-- Navbar content -->
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+                <a class="navbar-brand" href="~/welcome"><span class="fas fa-moon" style="font-size:2rem;"></span><span style="vertical-align: super; color: #0094ff"> @orgName</span></a>
+                <label class="navbar-toggler" for="cidHamBt">
+                    <span class="navbar-toggler-icon"></span>
+                </label>
+                <input type="checkbox" id="cidHamBt" />
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        @{
+                            bool hasRefItem = false;
+                        }
+                        @if (CacheManager.AllItemTypes != null)
+                        {
+                            foreach (var item in CacheManager.AllItemTypes)
+                            {
+                                if (item.TypeOfItem == (int)TypeOfItem.RefItem && !hasRefItem) { hasRefItem = true; }
+                                if (item.TypeOfItem == (int)TypeOfItem.Normal && SessionManager.CheckItemPermission(item))
+                                {
+
+                                    <li class="nav-item@(ViewBag.CurrentType==item.Name.ToLower()?" active":"")"><a class="nav-link" href="~/@item.Name.ToLower()/list">@(string.IsNullOrEmpty(item.Display) ? item.Name : item.Display)</a></li>
+                                }
+                            }
+                        }
+
+                        @if (SessionManager.CurrentUser == null)
+                        {
+
+                            <li class="nav-item"><a class="nav-link nav-spec" href="~/login">Log in</a></li>
+                        }
+                        else
+                        {
+
+
+
+                            if (hasRefItem && SessionManager.CurrentUser.HasPermission(Permission.MANAGE_BUSINESS))
+                            {
+                                <li class="nav-item dropdown">
+                                    <label tabindex="-1" class="nav-link dropdown-toggle">
+                                        Refs
+                                    </label>
+                                    <div class="dropdown-menu">
+                                        @foreach (var item in CacheManager.AllItemTypes)
+                                        {
+                                            if (item.TypeOfItem == (int)TypeOfItem.RefItem)
+                                            {
+                                                <a class="dropdown-item" href="~/@item.Name.ToLower()/list">@(string.IsNullOrEmpty(item.Display) ? item.Name : item.Display)</a>
+                                            }
+                                        }
+                                    </div>
+
+                                </li>
+                            }
+                            if (SessionManager.CurrentUser.HasPermission(Permission.ACCESS_REPORTING, Permission.MANAGE_REPORTING, Permission.MANAGE_APPROVAL))
+                            {
+                                <li class="nav-item dropdown">
+                                    <label tabindex="-1" class="nav-link dropdown-toggle">
+                                        Managements
+                                    </label>
+                                    <div class="dropdown-menu">
+                                        @if (SessionManager.CurrentUser.HasPermission(Permission.MANAGE_REPORTING, Permission.ACCESS_REPORTING))
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("reports", "home")">Reports</a>
+                                        }
+
+                                        @if (SessionManager.CurrentUser.HasPermission(Permission.MANAGE_APPROVAL))
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("approvalRules", "home")">Approval rules</a>
+                                        }
+
+                                    </div>
+
+                                </li>
+                            }
+
+                            if (SessionManager.CurrentUser.HasPermission(Permission.MANAGE_ITEMS, Permission.MANAGE_SYSTEM))
+                            {
+                                <li class="nav-item dropdown">
+                                    <label tabindex="-1" class="nav-link dropdown-toggle">
+                                        System
+                                    </label>
+                                    <div class="dropdown-menu">
+                                        @if (SessionManager.CurrentUser.HasPermission(Permission.MANAGE_ITEMS))
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("listitemtype", "item")">Entities</a>
+                                        }
+                                        @if (SessionManager.CurrentUser.HasPermission(Permission.MANAGE_SYSTEM))
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("listaccount", "system")">Accounts</a>
+                                            <a class="dropdown-item" href="@Url.Action("listrole", "system")">Roles</a>
+                                            <a class="dropdown-item" href="@Url.Action("listpermission", "system")">Permissions</a>
+                                        }
+
+                                    </div>
+                                </li>
+                            }
+                            <li class="nav-item dropdown">
+                                <label tabindex="-1" class="nav-link dropdown-toggle">
+                                    @SessionManager.CurrentUser.Username
+                                </label>
+                                <div class="dropdown-menu">
+                                    @if (SessionManager.CurrentUser.LinkedItems != null)
+                                    {
+                                        foreach (var item in SessionManager.CurrentUser.LinkedItems)
+                                        {
+                                            <a class="dropdown-item" href="~/@item.Name.ToLower()/detail/">@(string.IsNullOrEmpty(item.Display) ? item.Name : item.Display)</a>
+                                        }
+                                    }
+                                    <a class="dropdown-item" href="@Url.Action("profile", "system")">Profile</a>
+                                    <a class="dropdown-item nav-spec" href="~/logout">Log off <span class="fas fa-sign-out-alt"></span></a>
+
+                                </div>
+                            </li>
+
+                        }
+                    </ul>
+
+                </div>
+
+            </nav>
+        </div>
+    </main>
+    <div class="body container">
+        <br />
+        @RenderBody()
+        <br />
+    </div>
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="center">
+            <span class="text-muted"><a href="#">Term</a> - <a href="#">Conditions</a> - <a href="#">About</a></span>
+        </div>
+    </footer>
+    @if (ViewBag.UsingModal != null && ViewBag.UsingModal)
+    {
+        <div class="modal" elrole="myModal" tabIndex="-1" role="dialog">
+            <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 75%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" elrole="myModalTitle">???</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="return closeModal('@Url.Action("loading", "home")')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" elrole="myModalBody">
+                        <iframe elrole="iframe" frameborder="0" style="width: 100%; height: 65vh" src="@Url.Action("loading", "home")"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary fas fa-save" onClick="submitFormInModal();"> Save</button>
+                        <button type="button" class="btn btn-secondary fas fa-undo" data-dismiss="modal" onClick="return closeModal('@Url.Action("loading", "home")')"> Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop show"></div>
+    }
+    @if (ViewBag.ReactJs != null && ViewBag.ReactJs)
+    {
+
+        @Html.Partial("_ReactJs")
+    }
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+    "name": "Rule #1",
+    "itemTypeId":"ReImbursement",
+    "permissions": "cto",
+    "queryState": "Lv1_Approved",
+    "nextState": "Lv2_Approved",
+    "actions":[
+        {
+            "propId": "c1",
+            "value": "XYZ"
+    
+        }
+    ],
+    "queries":[
+        {
+            "propId": "c2",
+            "operator": "like",
+            "value": "ABC"
+    
+        },
+        {
+            "propId": "c3",
+            "operator": ">",
+            "value": "1000"
+    
+        }
+    ]
+}

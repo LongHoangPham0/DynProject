@@ -1,0 +1,29 @@
+{
+    "result": {
+        "data": [
+            {
+                "col1": "data row A col 1",
+                "col2": "data row B col 2"
+            },
+            {
+                "col1": "data row C col 1",
+                "col2": "data row D col 2"
+            }
+        ],
+        "pageIndex": 2,
+        "pageSize": 7,
+        "totalRow": 18,
+        "options":{
+            "columns": [
+                {
+                    "headerLabel": "Col 1",
+                    "dataField": "col1"
+                },
+                {
+                    "headerLabel": "Col 2",
+                    "dataField": "col2"
+                }
+            ]
+        }
+    }
+}

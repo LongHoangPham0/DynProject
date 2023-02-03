@@ -1,0 +1,40 @@
+﻿@using InternalProject.Web.Models
+@model SystemModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="list-item-type">
+    <h4>List Item Type</h4>
+    <a href="@Url.Action("manageitemtype","system")" class="btn btn-primary">New Item Type</a>
+</div>
+
+@using (Html.BeginForm("DeleteItemType", "System", FormMethod.Post))
+{
+    <table class="table table-bordered table-system">
+        <tr>
+            <th style="width: 90%">Name</th>
+            <th style="width: 10%"></th>
+        </tr>
+        @if (Model.ListItemType != null)
+        {
+            foreach (var item in Model.ListItemType)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("manageitemtype", "system")?itemtype.id=@item.ID">@item.Name</a>
+                    </td>
+                    <td>
+                        <button onclick="return confirmDelete()" type="submit" class="btn btn-danger" name="ID" value="@item.ID" >Delete</button>
+                    </td>
+                </tr> 
+            }
+        }
+        else
+        {
+            <tr>
+                <td>No items</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}

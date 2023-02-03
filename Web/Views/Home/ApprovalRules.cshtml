@@ -1,0 +1,10 @@
+﻿@using BlueMoon.DynWeb.Entities
+@using BlueMoon.DynWeb.Common;
+@model ItemType
+@{
+    ViewBag.Title = "Approval rules";
+    ViewBag.ReactJs = true;
+}
+
+
+<div role="react-loader" data-page="RuleLauncher" editable="@SessionManager.CurrentUser.HasPermission("Manage Report").ToString().ToLower()"></div>

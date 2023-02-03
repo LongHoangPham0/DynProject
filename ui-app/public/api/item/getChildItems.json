@@ -1,0 +1,36 @@
+{
+    "linkedItems": {
+        "item4": {
+            "title": "Attachments",
+            "linkedMode": 3,
+            "itemId": 1001,
+            "editable": true
+        },
+        "item3": {
+            "title": "Extension",
+            "itemName": "item3",
+            "linkedMode": 2,
+            "itemId": 3,
+            "idField": "f1",
+            "displayField": "f2"
+        },
+        "item1": {
+            "title": "Add new",
+            "itemName": "item1",
+            "linkedMode": 0,
+            "idField": "f1",
+            "displayField": "f2",
+            "editable": true
+        },
+        "item2": {
+            "title": "Select Items",
+            "itemName": "item2",
+            "linkedMode": 1,
+            "idField": "f1",
+            "displayField": "f2",
+            "editable": true,
+            "showComment": false
+        }
+        
+    }
+}

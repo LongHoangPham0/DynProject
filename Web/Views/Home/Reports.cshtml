@@ -1,0 +1,10 @@
+﻿@using BlueMoon.DynWeb.Entities
+@using BlueMoon.DynWeb.Common;
+@model ItemType
+@{
+    ViewBag.Title = "Reports";
+    ViewBag.ReactJs = true;
+}
+
+
+<div role="react-loader" data-page="ReportLauncher" editable="@ViewBag.Editable.ToString().ToLower()"></div>

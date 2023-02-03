@@ -1,0 +1,41 @@
+{
+    "items": {
+        "data": [
+            {
+                "itemId": "i1",
+                "itemName": "Item 1"
+            },
+            {
+                "itemId": "i2",
+                "itemName": "Using flex together with media queries to create a different layout for different screen sizes/devices:"
+            },
+            {
+                "itemId": "i3",
+                "itemName": "Item 3"
+            },
+            {
+                "itemId": "i4",
+                "itemName": "Item 4"
+            },
+            {
+                "itemId": "i1",
+                "itemName": "Item 1"
+            },
+            {
+                "itemId": "i2",
+                "itemName": "Item 2"
+            },
+            {
+                "itemId": "i3",
+                "itemName": "Item 3"
+            },
+            {
+                "itemId": "i4",
+                "itemName": "Item 4"
+            }
+        ],
+        "pageIndex": 9,
+        "pageSize": 7,
+        "totalRow": 477
+    }
+}

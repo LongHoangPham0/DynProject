@@ -1,0 +1,30 @@
+{
+    "name": "Report #1",
+    "dataSourceId":"Project",
+    "queries":[
+        {
+            "propId": "c2",
+            "operator": "like",
+            "value": "ABC"
+    
+        },
+        {
+            "propId": "c3",
+            "operator": ">",
+            "value": "1000"
+    
+        }
+    ],
+    "colIds": ["c2","c3"],
+    "sorts":[
+        {
+            "propId": "c2",
+            "direction": "asc"
+        },
+        {
+            "propId": "c3",
+            "direction": "desc"
+        }
+    ]
+
+}

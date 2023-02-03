@@ -1,0 +1,49 @@
+﻿@using BlueMoon.DynWeb.Models
+@model SystemModel
+@{
+    ViewBag.Title = "All Entities";
+}
+<div class="list-item-type">
+    <h4>Entity list</h4>
+    <a href="@Url.Action("manageItemType","item")" class="btn btn-primary fas fa-plus-square"> New entity</a>
+</div>
+
+@using (Html.BeginForm("deleteItemType", "item", FormMethod.Post))
+{
+    <table class="table table-bordered table-system">
+        <colgroup>
+            <col/>
+            <col width="60px"/>
+            <col width="130px"/>
+        </colgroup>
+        <tr>
+            <th>Name</th>
+            <th>Order</th>
+            <th>Action</th>
+        </tr>
+        @if (Model.ListItemType != null)
+        {
+            foreach (var item in Model.ListItemType)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("manageItemType", "item")?_sq=true&itemtype.id=@item.ID">@item.Name</a>
+                    </td>
+                    <td>
+                        @item.SortOrder
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-danger fas fa-trash" name="ID" value="@item.ID" > Delete</button>
+                    </td>
+                </tr> 
+            }
+        }
+        else
+        {
+            <tr>
+                <td>No items</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}

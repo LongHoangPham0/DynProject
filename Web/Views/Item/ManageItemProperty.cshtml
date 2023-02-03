@@ -1,0 +1,53 @@
+﻿@using BlueMoon.DynWeb.Models;
+@using BlueMoon.DynWeb.Entities;
+@model SystemModel
+@{
+    ViewBag.Title = "Attribute Definition";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+    ViewBag.ReactJs = true;
+    if (Model.Close)
+    {
+        <script>
+            closeModal();
+        </script>
+    }
+}
+
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control", onsubmit = "return valInput();" }))
+{
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @(Html.InputForModel<ItemTypeProperty>("ItemTypeProperty", Model.ItemTypeProperty, new ModelControlConfiguration<ItemTypeProperty>() { ValidateFunction = "valInput" }))
+    
+    <script>
+        var dataType = {
+            TypeOfInt: '[protected:Int]',
+            TypeOfDecimal: '[protected:Decimal]',
+            TypeOfString: '[protected:String]',
+        }
+        var obj = document.getElementById('ItemTypeProperty_OnValueChanged');
+        if (obj != null) {
+            var div = document.createElement('div');
+
+            div.innerHTML = unescape(obj.value || '[]');
+            div.setAttribute('role', 'react-loader');
+            div.setAttribute('data-page', 'ConstraintDef');
+            div.setAttribute('modelProperty', obj.name);
+            div.setAttribute('type', @Model.ItemTypeProperty.ItemType);
+            
+            obj.parentElement.replaceChild(div, obj);
+        }
+        obj = document.getElementById('ItemTypeProperty_Validation');
+        if (obj != null) {
+            var div = document.createElement('div');
+            div.innerHTML = unescape(obj.value || '[]');
+            div.setAttribute('role', 'react-loader');
+            div.setAttribute('data-page', 'ValidationDef');
+            div.setAttribute('modelProperty', obj.name);
+            div.setAttribute('dependant', 'ItemTypeProperty_DataType');
+
+            obj.parentElement.replaceChild(div, obj);
+        }
+        //
+        document.getElementsByName('ItemTypeProperty.PropertyName')[0].disabled = document.getElementsByName('ItemTypeProperty.ID')[0].value != '[protected:0]';
+    </script>
+}

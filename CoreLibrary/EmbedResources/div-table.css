@@ -1,0 +1,105 @@
+﻿/*do not modify*/
+div.l-table {
+    display:inline-block;
+    border: solid 1px #AAA;
+    max-width: 100%;
+}
+  
+div.l-table > div.l-head {
+    overflow: hidden;
+    border-bottom: solid 1px #AAA;
+    display: block;
+    width:auto;
+}
+div.l-table > div.l-body {
+    overflow: auto;
+    display: block;
+    width:auto;
+}
+
+div.l-head > div.l-row,
+div.l-body > div.l-row {
+    white-space: nowrap;
+    display: inline-block;
+    border-top: solid 1px #AAA;
+    
+}
+div.l-head > div.l-row:first-child,
+div.l-body > div.l-row:first-child {
+    border-top: none;
+}
+div.l-row > div.l-col {
+    display: inline-block;
+    box-sizing: content-box;
+    border-right: solid 1px #AAA;
+	padding: 2px;
+    height: 100%;
+}
+div.l-row > div.l-col:last-child {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+div.l-row > div.l-col:last-child {
+    border-right: none;
+}
+
+
+div.l-col > div,
+div.l-col > label{
+    display: block;
+}
+div.l-col > div:empty:after {
+    content: 'N/A';
+}
+div.l-body > div.l-row > div.l-col > label {   
+    display: none;
+}
+
+@media all and (max-width: 800px){
+    div.l-body div.l-row {
+        margin-bottom: 1em;
+        border: none;
+		display: inline-block;
+    }
+    div.l-table > div.l-head {
+        display: none;
+    }
+    div.l-row > div.l-col {
+        border: none;
+    }
+    div.l-body > div.l-row > div.l-col {
+        display: block;
+    }
+    
+    div.l-col > div,
+    div.l-body > div.l-row > div.l-col > label {
+        display: inline-block;
+        width: auto;
+    }
+    div.l-col > label:after {
+        content: ':';
+    }
+    
+}
+/*-------*/
+div.l-table > div.l-body {
+    max-height: 300px;
+}
+div.l-row > div.l-col {
+    width: 200px;
+}
+div.l-col > label {
+    font-weight: bold;
+    color: #000;
+    text-align:center;
+}
+div.l-col > div {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+div.l-table > div.l-head {
+    background-color: #0094ff;
+}
+div.l-table > div.l-head label {
+	color: #FFF;
+}

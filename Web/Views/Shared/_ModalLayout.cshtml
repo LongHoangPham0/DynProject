@@ -1,0 +1,28 @@
+﻿@using BlueMoon.DynWeb.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueMoon - @ViewBag.Title</title>
+    <script>var bs = '@Html.Version("~/res/css/bootstrap.min.css")'; document.write('<link rel="stylesheet" type="text/css" href="' + bs+'" />');</script>@*to avoid auto bundling*@
+    <link rel="stylesheet" type="text/css" href="@Html.Version("~/res/css/icons.css")" />
+    <link rel="stylesheet" type="text/css" href="@Html.Version("~/res/css/main.css")" />
+    <link rel="stylesheet" type="text/css" href="@Html.Version("~/res/css/site.css")" />
+    <style>
+        .modal-dialog {
+            max-height: 50%;
+        }
+    </style>
+    @RenderStyles()
+    @RenderScripts()
+    <script type="text/javascript" src="@Html.Version("~/res/js/site.js")"></script>
+</head>
+<body>
+    @Html.Partial("_Loading")
+    <div class="container body-content body-model-layout" style="max-width: 100%">
+        @RenderBody()
+    </div>
+    @Html.Partial("_ReactJs")
+</body>
+</html>

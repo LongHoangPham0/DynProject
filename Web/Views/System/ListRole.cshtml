@@ -1,0 +1,39 @@
+﻿@using BlueMoon.DynWeb.Models
+@model SystemModel
+@{
+    ViewBag.Title = "Roles";
+}
+<div class="list-item-type">
+    <h4>Role list</h4>
+    <a href="@Url.Action("managerole","system")" class="btn btn-primary">New role</a>
+</div>
+@using (Html.BeginForm("DeleteRole", "System", FormMethod.Post))
+{
+    <table class="table table-bordered table-system">
+        <tr>
+            <th style="width: 90%">Name</th>
+            <th style="width: 10%"></th>
+        </tr>
+        @if (Model.ListRole != null)
+        {
+            foreach (var item in Model.ListRole)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("managerole", "system")?_sq=true&role.id=@item.ID">@item.Name</a>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-danger" name="ID" value="@item.ID" >Delete</button>
+                    </td>
+                </tr> 
+            }
+        }
+        else
+        {
+            <tr>
+                <td>No items</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}

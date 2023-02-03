@@ -1,0 +1,25 @@
+{
+    "attachments": {
+        "data": [
+            {
+                "fileId": "file1",
+                "fileName": "log.txt",
+                "url": "/download/log.tx",
+                "userName": "admin",
+                "description": "Merchant detail list",
+                "time": "2021-12-1 14:02"
+            },
+            {
+                "fileId": "file2",
+                "fileName": "config.json",
+                "url": "/download/config.json",
+                "userName": "user1",
+                "description": "This data was from Fiser UAT. There was no error log but we saw the FE API response as BE API error",
+                "time": "2013-11-23 19:12"
+            }
+        ],
+        "pageIndex": 2,
+        "pageSize": 7,
+        "totalRow": 8
+    }
+}

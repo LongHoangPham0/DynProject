@@ -1,0 +1,15 @@
+﻿@using BlueMoon.DynWeb.Common
+<app-loader debug="true"></app-loader>
+<script>
+            window.rootUrl = '@Url.Content("~/")';
+            var bluemoon = {
+                reactjs: {}
+            };
+</script>
+
+
+    <script src="@Url.Content("~/res/defs/static/sys-fields.js")"></script>
+    <script src="@Url.Content("~/res/defs/static/sys-views.js")"></script>
+    <script src="@Html.GenDynFieldDefs()"></script>
+    <script src="@Html.GenDynViewDefs()"></script>
+    <script src="@Html.Version("~/res/js/bundle.js")"></script>

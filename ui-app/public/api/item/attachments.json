@@ -1,0 +1,17 @@
+{
+    "attachments": {
+        "data": [
+            {
+                "fileName": "log.txt",
+                "url": "/download/log.tx"
+            },
+            {
+                "fileName": "config.json",
+                "url": "/download/config.json"
+            }
+        ],
+        "pageIndex": 2,
+        "pageSize": 7,
+        "totalRow": 477
+    }
+}

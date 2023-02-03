@@ -1,0 +1,39 @@
+﻿@using BlueMoon.DynWeb.Entities
+@using BlueMoon.DynWeb.Models
+@using BlueMoon.DynWeb.Common;
+@model SystemModel
+@{
+    ViewBag.Title = "Profile";
+}
+<h4><b>Your profile</b></h4>
+
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control", autocomplete = "off", onsubmit = "return valInput();" }))
+{
+
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @(Html.InputForModel<Account>("Account", Model.Account, new ModelControlConfiguration<Account>() { ValidateFunction = "valInput" }))
+   
+
+    <div style="text-align: right">
+        <button name="Action" type="submit" class="btn btn-primary fas fa-save"> Save</button>
+    </div>
+
+}
+
+    <script>
+        var pwdObj = document.getElementsByName('Account.Password')[0];
+        pwdObj.disabled = true;
+        pwdObj.value = '';
+        document.getElementsByName('Account.Username')[0].disabled = true;
+        document.getElementsByName('Account.ResetPwd')[0].addEventListener('click', function switchRst() {
+            pwdObj.disabled = !this.checked;
+        });
+        var obj = document.getElementsByName('Account.RoleID')[0];
+        obj.disabled = true;
+        obj.parentElement.parentElement.style.display = 'none';
+
+        obj = document.getElementsByName('Account.LinkedIDs')[0];
+        obj.disabled = true;
+        obj.parentElement.parentElement.style.display = 'none';
+        
+    </script>

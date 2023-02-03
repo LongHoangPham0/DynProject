@@ -1,0 +1,24 @@
+﻿@using InternalProject.Web.Models
+@using InternalProject.Web.Common;
+@model SystemModel
+@{
+    ViewBag.Title = "Manage ItemProperty";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+    if(Model.Close)
+    {
+        <script>
+            closeModal();
+        </script>
+    }
+}
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control" }))
+{
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @(Html.InputForModel<ItemTypeProperty>("ItemTypeProperty", Model.ItemTypeProperty, new ModelControlConfiguration<ItemTypeProperty>() { ValidateFunction = "valInput" }))
+   
+    <div style="text-align: right">
+        <a onclick="closeModal()" class="btn btn-default">Cancel</a> 
+        <input name="Action" type="submit" class="btn btn-primary" value="Save" onclick="return valInput();" />
+    </div>
+    
+}

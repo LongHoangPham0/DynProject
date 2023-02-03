@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>My App</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/icons.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>@keyframes spin360 { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }</style>
+  <script src="js/obs.js"></script>
+</head>
+
+<body onload="doOnLoad()">
+  <div class="loading-spin" style="animation: 4s linear 0s infinite normal none running spin360; font-size: 3em; position: fixed; left: 50%; top: 50%; z-index: 99999;">֎</div>
+    <div class="loading-panel" style="z-index: 9999; opacity: 0.5; position: fixed; width: 100%; height: 100%; background-color: rgb(204, 204, 204);"></div>
+  <div class="container">
+  <!-- Navbar content -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+  </div> 
+  </nav>
+  </div>
+  <div class="container">
+    <h1>Demo of React App</h1>
+    <app-loader id="loader" viewUrls="defs/views.js" fieldUrls="defs/fields.js" debug="true"></app-loader>
+
+    <form action="/acb" enctype="multipart/form-data" method="POST">
+    <select id="cidDataType" multiple="true">
+      <option value="String">String</option>
+      <option value="Int">Int</option>
+      <option value="Decimal">Decimal</option>
+    </select>
+    <div role="react-loader" data-page="MapToItem" modelProperty="LinkedIds">7|Employee - Nha Doan,8|Customer - Chu 8</div>
+    <div role="react-loader" data-page="ConstraintDef" modelProperty="MyConstraintSettings" type="103">
+      [{match:{operator:&#39;&gt;&#39;,value:1000},fields:[&#39;c1&#39;,&#39;c2&#39;],actions:{visibility:&#39;invisible&#39;,ability:&#39;disable&#39;,dataSource:[{a:'aon'}] }},{match:{operator:&#39;==&#39;,value:&#39;100&#39;},fields:[&#39;c3&#39;],actions:{visibility:&#39;invisible&#39;,ability:&#39;disable&#39;,dataSource:null}}]
+    </div>
+    <br/>
+    <div role="react-loader" data-page="ValidationDef" dependant="cidDataType" type="string" modelProperty="MyValidationSettings">
+      
+      [{rule:'required',msg:'Day of leave must be greater than 0',options:null},{rule:'max',msg:'Can not over 15 days',options:{maxValue:15}},{rule:'min',msg:'At least 1 day',options:{minValue:1}}]
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+    <div role="react-loader1" data-page="RuleLauncher" editable="true"></div><br/>
+    <div role="react-loader" data-page="ReportLauncher" editable="true"></div><br/>
+    <div role="react-loader1" data-page="ItemLauncher" itemid="1" authenticated="true" editable="true" tabName="Item Detail" showComment="true" showHistory="true" itemName="anyItem" idField="itemId" displayField="itemName"></div>
+    <div role="react-loader1" data-page="ItemLauncher" showapproval="true" authenticated="true" approver="true" editable="true" tabName="List" showComment="true" showHistory="true" itemTitle="Any item list" itemName="anyItem" idField="itemId" displayField="itemName"></div>
+    
+  </div>
+  <hr/>
+  <div id="cidContainer"></div>
+  <script>
+    //dhn.datePickerWidget(new Date()).attachedTo(document.getElementById('cidDatePicker'),'MM/dd/yyyy');
+  window.rootUrl = '/';
+  var dataType = {
+    TypeOfInt: 'Int',
+    TypeOfDecimal: 'Decimal',
+    TypeOfString: 'String'
+  }
+  var bluemoon = {
+    reactjs: {},
+    merge: function(obj1, obj2){
+      var ret = {};
+      Object.assign(ret, obj1);
+      Object.assign(ret, obj2);
+      console.log(obj1);
+      console.log(obj2);
+      console.log(ret);
+      return ret;
+    }
+  };
+  </script>
+  <script src="defs/sys-fields.js"></script>
+  <script src="defs/sys-views.js"></script>
+  <script src="bundle.js"></script>
+  
+
+
+</body>
+
+</html>

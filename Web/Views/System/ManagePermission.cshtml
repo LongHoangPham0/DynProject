@@ -1,0 +1,32 @@
+﻿@using BlueMoon.DynWeb.Models
+@using BlueMoon.DynWeb.Common;
+@model SystemModel
+@{
+    ViewBag.Title = "Permission Detail";
+}
+@if (Model.Permission.ID > 0)
+{
+    <h4><b>Edit permission</b></h4>  
+}
+else
+{
+    <h4><b>New permission</b></h4>  
+}
+@using (Html.BeginForm((string)null, (string)null, FormMethod.Post, new { @class = "dynamic-control" }))
+{
+    @Html.SecuredHiddenFor(m => m.ReturnUrl)
+    @Html.SecuredHiddenFor(m => m.Permission.ID)
+    <label>Permission code</label>
+    <div class="form-group">
+            @Html.TextBoxFor(m => m.Permission.Name, new { @class = "form-control", @required = "required" })
+    </div>
+    <label>Description</label>
+    <div class="form-group">
+            @Html.TextAreaFor(m => m.Permission.Description, new { @class = "form-control" })
+    </div>
+    <div style="text-align: right">
+        <button name="Action" type="submit" class="btn btn-primary fas fa-save"> Save</button>
+        <a href="@Model.ReturnUrl" class="btn btn-secondary fas fa-undo"> Cancel</a>
+    </div>
+    
+}

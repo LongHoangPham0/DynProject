@@ -1,0 +1,688 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link href="div-table.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="div-table.js"></script>
+    <style>
+        header > main {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            font-size: 14px;
+            z-index: 100;
+            outline: none;
+            transition: top 1s;
+        }
+        header > main * {
+            padding: 0;
+            margin: 0;
+            line-height: 1em;
+            font-size: 1em;
+        }
+        header > main + * {
+            margin-top: 1em;
+        }
+        header > main > indicator {
+            display:block;
+            width: 100%;
+            position: relative;
+            
+        }
+        header > main > indicator > label {
+            position: absolute;
+            display: block;
+            cursor: pointer;
+        }
+        header > input:checked + main,
+        header > main:hover {
+            top: 0px;
+        }
+        header > main > content {
+            width: 100%;
+            display: block;
+            overflow: visible;
+        }
+        header > input {
+            display: none;
+        }
+
+        /*size & position*/
+        header > main > content {
+            height: 50px;/*content height*/
+        }
+        header > main {
+            top: -50px;/*(-)content height*/
+        }
+        header > main > indicator {
+            height: 8px;/*indicator height*/
+        }
+        header > main > indicator > label {/*circle*/
+            right: 4em; 
+            top: -11px; /*(circle radius)/2 - (indicator height)/2*/
+            border-radius: 30px; /*circle radius*/
+            width: 30px; /*circle radius*/
+            height: 30px; /*circle radius*/
+        }
+        @media all and (max-width:640px) {
+            header > main > content {
+                overflow: auto;
+            }
+            /*size & position*/
+            header > main > content {
+                height: 200px;/*content height*/
+
+            }
+            header > main {
+                top: -200px;/*(-)content height*/
+            }
+        }
+        /*color*/
+        header > main > content {
+            background-color: seagreen;
+        }
+        header > main > indicator,
+        header > main > indicator > label {
+            background-color: brown;
+        }
+        
+
+        header > input:checked + main > indicator,
+        header > input:checked + main > indicator > label {
+            background-color: lightgray;
+        }
+
+        /*------------*/
+        /*------------*/
+        /*------------*/
+        /*------------*/
+        /*------menu------*/
+        
+        menu {
+            position: relative;
+            width: 100%;
+            z-index: 2;
+        }
+        menu group {
+            display: inline-block;
+        }
+        menu nav {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            border: solid 1px #009;
+            background-color: #0094ff;
+            min-width: 120px;
+            margin-left: 3em;
+            transition: opacity 1s, visibility 1s;
+            text-align: left;
+        }
+        
+        menu group:hover > nav {
+            opacity: 1;
+            visibility: visible;
+        }
+            
+        menu label,
+        menu a {
+            display: inline-block;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            color: aqua;
+            margin: 8px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        menu group:hover > label,
+        menu label:hover,
+        menu a:hover {
+            color: orange;
+        }
+        menu label:after {
+            content: '►';
+        }
+        menu nav > a {
+            display: block;
+        }
+        @media all and (max-width:640px) {
+            menu label,
+            menu group,
+            menu a {
+                display: block;
+            }
+            
+            menu a,
+            menu label {
+                border-bottom: solid 1px lightgray;
+            }
+
+            menu nav {
+                position: static;
+                display: none;
+                visibility: visible;
+                transition: none;
+                margin-left: 1em;
+                background-color: transparent;
+                border: none;
+            }
+            menu group:hover > nav {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="checkbox" id="cidMiniHeader" />
+        <main>
+            <content>
+                <menu>
+                    <a href="home">Home</a>
+                    <a href="page">My Page</a>
+                    <group>
+                        <label>Projects</label>
+                        <nav>
+                            <a href="hipaa">HIPAA</a>
+                            <a href="fd">FD</a>
+                            <a href="npc">NPC</a>
+                        </nav>
+                    </group>
+                    <group>
+                        <label>Help</label>
+                        <nav>
+                            <a href="about">About us</a>
+                            <group>
+                                <label>Projects</label>
+                                <nav>
+                                    <a href="hipaa">HIPAA</a>
+                                    <group>
+                                        <label>TMS</label>
+                                        <nav>
+                                            <a href="user">Create user</a>
+                                        </nav>
+                                    </group>
+                                    <a href="fd">FD</a>
+                                    <a href="npc">NPC</a>
+                                </nav>
+                            </group>
+                            <a href="wiki">Wiki</a>
+                        </nav>
+                    </group>
+                </menu>
+            </content>
+            <indicator><label for="cidMiniHeader"></label></indicator>
+        </main>
+    </header>
+            <div class="l-table">
+                <div class="l-head">
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="l-body">
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+                
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+                
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                            <div>Value</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="l-table">
+                <div class="l-head">
+                    <div class="l-row">
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                        <div class="l-col">
+                            <label>Label</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="l-body">
+                    <div class="l-row">
+                        <div class="l-no-item">No data.</div>
+                    </div>
+                </div>
+                
+            </div>
+</body>
+</html>
